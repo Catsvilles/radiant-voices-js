@@ -27,18 +27,18 @@
   "parser": "babel-eslint",
 
   "plugins": [
-    
+
   ],
 
   "rules": {
     "block-scoped-var": 2,
     "brace-style": [2, "1tbs", { "allowSingleLine": true }],
     "camelcase": [2, { "properties": "always" }],
-    "comma-dangle": [2, "never"],
+    "comma-dangle": [2, "always-multiline"],
     "comma-spacing": [2, { "before": false, "after": true }],
     "comma-style": [2, "last"],
     "complexity": 0,
-    "consistent-return": 2,
+    "consistent-return": 0,
     "consistent-this": 0,
     "curly": [2, "multi-line"],
     "default-case": 0,
@@ -48,7 +48,7 @@
     "eqeqeq": [2, "allow-null"],
     "func-names": 0,
     "func-style": 0,
-    "generator-star-spacing": [2, "both"],
+    "generator-star-spacing": [2, "before"],
     "guard-for-in": 0,
     "handle-callback-err": [2, "^(err|error|anySpecificError)$" ],
     "indent": [2, 2, { "SwitchCase": 1 }],
@@ -61,7 +61,7 @@
     "max-params": 0,
     "max-statements": 0,
     "new-cap": [2, { "newIsCap": true, "capIsNew": false }],
-    "newline-after-var": [2, "always"],
+    "newline-after-var": [2, "never"],
     "new-parens": 2,
     "no-alert": 0,
     "no-array-constructor": 2,
@@ -162,7 +162,7 @@
     "quote-props": 0,
     "quotes": [2, "single", "avoid-escape"],
     "radix": 2,
-    "semi": [2, "always"],
+    "semi": [2, "never"],
     "semi-spacing": 0,
     "sort-vars": 0,
     "space-before-blocks": [2, "always"],
