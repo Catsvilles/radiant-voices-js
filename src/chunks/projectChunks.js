@@ -1,4 +1,4 @@
-import chunks from '.'
+import { chunks } from '.'
 
 export default function *projectChunks(project) {
   const {
@@ -28,20 +28,20 @@ export default function *projectChunks(project) {
   yield {
     type: 'VERS', data: {
       bytes: [
-        sunvoxVersion[3],
-        sunvoxVersion[2],
-        sunvoxVersion[1],
-        sunvoxVersion[0],
+        sunvoxVersion.get(3),
+        sunvoxVersion.get(2),
+        sunvoxVersion.get(1),
+        sunvoxVersion.get(0),
       ],
     },
   }
   yield {
     type: 'BVER', data: {
       bytes: [
-        basedOnVersion[3],
-        basedOnVersion[2],
-        basedOnVersion[1],
-        basedOnVersion[0],
+        basedOnVersion.get(3),
+        basedOnVersion.get(2),
+        basedOnVersion.get(1),
+        basedOnVersion.get(0),
       ],
     },
   }
@@ -62,14 +62,14 @@ export default function *projectChunks(project) {
   yield { type: 'PATN', data: { uint32: currentPattern } }
   yield { type: 'PATT', data: { uint32: currentTrack } }
   yield { type: 'PATL', data: { uint32: currentLine } }
-  for (let pattern in patterns) {
-    for (let chunk in chunks(pattern)) {
+  for (let pattern of patterns) {
+    for (let chunk of chunks(pattern)) {
       yield chunk
     }
     yield { type: 'PEND' }
   }
-  for (let module in modules) {
-    for (let chunk in chunks(module)) {
+  for (let module of modules) {
+    for (let chunk of chunks(module)) {
       yield chunk
     }
     yield { type: 'SEND' }

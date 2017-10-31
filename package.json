@@ -42,6 +42,7 @@
   },
   "homepage": "https://github.com/metrasynth/radiant-voices-js",
   "dependencies": {
+    "datastream-js": "^1.0.7",
     "extendable-immutable": "^1.3.3",
     "immutable": "^3.8.1",
     "windows-1251": "^1.0.0"

@@ -7,7 +7,11 @@ import OutputModule from './OutputModule'
 import Pattern from './Pattern'
 import Patterns from './Patterns'
 import Project from './Project'
-import chunks from './chunks'
+import {
+  chunks,
+  fromIffBuffer,
+  toIffBuffer,
+} from './chunks'
 
 export {
   Module,
@@ -18,4 +22,6 @@ export {
   Patterns,
   Project,
   chunks,
+  fromIffBuffer,
+  toIffBuffer,
 }

@@ -4,8 +4,10 @@ import Project from '../Project'
 import moduleChunks from './moduleChunks'
 import patternChunks from './patternChunks'
 import projectChunks from './projectChunks'
+import fromIffBuffer from './fromIffBuffer'
+import toIffBuffer from './toIffBuffer'
 
-export default function chunks(obj) {
+export function chunks(obj) {
   if (Module.isModule(obj)) {
     return moduleChunks(obj)
   } else if (Pattern.isPattern(obj)) {
@@ -14,3 +16,5 @@ export default function chunks(obj) {
     return projectChunks(obj)
   }
 }
+
+export { fromIffBuffer, toIffBuffer }
