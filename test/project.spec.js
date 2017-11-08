@@ -12,8 +12,8 @@ import {
 
 const emptyProject = Project.empty()
 
-describe('empty Projects', () => {
-  it('are Projects', () => {
+describe('empty Project', () => {
+  it('is a Project', () => {
     expect(Project.isProject(emptyProject)).to.equal(true)
   })
   it('has SVOX magic chunk', () => {
