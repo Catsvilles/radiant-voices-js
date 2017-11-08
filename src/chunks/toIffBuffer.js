@@ -2,7 +2,6 @@ import DataStream from 'datastream-js'
 import encoding from './encoding'
 
 export default function toIffBuffer(chunks) {
-  const headerLength = 8
   const ds = new DataStream()
   for (const { type, data } of chunks) {
     ds.writeString(type, encoding, 4)
@@ -30,7 +29,6 @@ export default function toIffBuffer(chunks) {
     } else {
       ds.writeUint32(0)
     }
-    const pos = ds.position
   }
   return ds
 }
