@@ -132,12 +132,4 @@ export default class Project extends Map {
     return this.get('currentLine')
   }
 
-  get patterns() {
-    return this.get('patterns')
-  }
-
-  get modules() {
-    return this.get('modules')
-  }
-
 }
