@@ -1,1 +1,1 @@
-export default 'cp1251'
+export default 'utf8'
