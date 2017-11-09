@@ -8,11 +8,11 @@ const chunks = rv.fromIffBuffer(f, { raw: true })
 
 for (const { type, data } of chunks) {
   process.stdout.write(type + '    ')
-  const { raw } = data
-  if (raw) {
-    const buffer = Buffer.from(raw)
+  const { bytes, raw } = data
+  if (bytes || raw) {
+    const buffer = Buffer.from(bytes || raw)
     if (buffer.length > 0) {
-      console.log(hexdump(Buffer.from(raw)).replace(/\n/g, '\n        '))
+      console.log(hexdump(buffer).replace(/\n/g, '\n        '))
     } else {
       console.log('(empty)')
     }
