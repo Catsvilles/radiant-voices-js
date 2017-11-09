@@ -16,9 +16,6 @@ describe('empty Project', () => {
   it('is a Project', () => {
     expect(Project.isProject(emptyProject)).to.equal(true)
   })
-  it('has SVOX magic chunk', () => {
-    expect(emptyProject.magicChunk).to.equal('SVOX')
-  })
   it('has an output module', () => {
     const { outputModule } = emptyProject
     expect(OutputModule.isOutputModule(outputModule)).to.equal(true)

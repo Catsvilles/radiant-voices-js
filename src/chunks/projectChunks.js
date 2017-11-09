@@ -2,7 +2,6 @@ import { chunks } from '.'
 
 export default function *projectChunks(project) {
   const {
-    magicChunk,
     sunvoxVersion,
     basedOnVersion,
     initialBpm,
@@ -24,7 +23,7 @@ export default function *projectChunks(project) {
     patterns,
     modules,
   } = project
-  yield { type: magicChunk }
+  yield { type: 'SVOX', data: { empty: true } }
   yield {
     type: 'VERS', data: {
       bytes: [

@@ -40,10 +40,6 @@ export default class Project extends Map {
     return val && val instanceof Project && val.get('initialized')
   }
 
-  get magicChunk() {
-    return 'SVOX'
-  }
-
   get modules() {
     return this.get('modules')
   }
