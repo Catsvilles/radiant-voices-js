@@ -11,6 +11,8 @@ export default function toIffBuffer(chunks) {
         uint32,
         bytes,
         cstring,
+        color,
+        empty,
       } = data
       if (int32 !== undefined) {
         ds.writeUint32(4)
@@ -25,6 +27,13 @@ export default function toIffBuffer(chunks) {
         ds.writeUint32(cstring.length + 1)
         ds.writeString(cstring, encoding, cstring.length)
         ds.writeUint8(0)
+      } else if (color !== undefined) {
+        ds.writeUint32(3)
+        ds.writeUint8(color.r)
+        ds.writeUint8(color.g)
+        ds.writeUint8(color.b)
+      } else if (empty) {
+        ds.writeUint32(0)
       }
     } else {
       ds.writeUint32(0)

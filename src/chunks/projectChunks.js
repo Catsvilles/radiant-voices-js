@@ -65,13 +65,13 @@ export default function *projectChunks(project) {
     for (let chunk of chunks(pattern)) {
       yield chunk
     }
-    yield { type: 'PEND' }
+    yield { type: 'PEND', data: { empty: true } }
   }
   for (let module of modules) {
     for (let chunk of chunks(module)) {
       yield chunk
     }
-    yield { type: 'SEND' }
+    yield { type: 'SEND', data: { empty: true } }
   }
 
   // TODO: patterns
