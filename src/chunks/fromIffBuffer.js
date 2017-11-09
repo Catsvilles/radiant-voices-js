@@ -2,7 +2,7 @@ import DataStream from 'datastream-js'
 import chunkTypes from './chunkTypes'
 import encoding from './encoding'
 
-export default function *fromIffBuffer(buffer) {
+export default function *fromIffBuffer(buffer, { raw } = {}) {
   const ds = new DataStream(buffer)
   while (!ds.isEof()) {
     const startPos = ds.position
@@ -25,7 +25,7 @@ export default function *fromIffBuffer(buffer) {
         yield { type, data: { uint32: ds.readUint32() } }
         break
       default:
-        yield { type }
+        yield raw ? { type, data: { raw: ds.readUint8Array(length) } } : { type }
         break
     }
     ds.position = endPos
