@@ -4,40 +4,39 @@ import encoding from './encoding'
 export default function toIffBuffer(chunks) {
   const ds = new DataStream()
   for (const { type, data } of chunks) {
+    const dataType = Object.keys(data)[0]
+    const { [dataType]: value } = data
     ds.writeString(type, encoding, 4)
-    if (data !== undefined) {
-      const {
-        int32,
-        uint32,
-        bytes,
-        cstring,
-        color,
-        empty,
-      } = data
-      if (int32 !== undefined) {
-        ds.writeUint32(4)
-        ds.writeInt32(int32)
-      } else if (uint32 !== undefined) {
-        ds.writeUint32(4)
-        ds.writeUint32(uint32)
-      } else if (bytes !== undefined) {
-        ds.writeUint32(bytes.length)
-        ds.writeUint8Array(bytes)
-      } else if (cstring !== undefined) {
-        ds.writeUint32(cstring.length + 1)
-        ds.writeString(cstring, encoding, cstring.length)
-        ds.writeUint8(0)
-      } else if (color !== undefined) {
-        ds.writeUint32(3)
-        ds.writeUint8(color.r)
-        ds.writeUint8(color.g)
-        ds.writeUint8(color.b)
-      } else if (empty) {
-        ds.writeUint32(0)
-      }
-    } else {
-      ds.writeUint32(0)
-    }
+    writers[dataType](ds, value)
   }
   return ds
+}
+
+const writers = {
+  int32: (ds, value) => {
+    ds.writeUint32(4)
+    ds.writeInt32(value)
+  },
+  uint32: (ds, value) => {
+    ds.writeUint32(4)
+    ds.writeUint32(value)
+  },
+  bytes: (ds, value) => {
+    ds.writeUint32(value.length)
+    ds.writeUint8Array(value)
+  },
+  cstring: (ds, value) => {
+    ds.writeUint32(value.length + 1)
+    ds.writeString(value, encoding, value.length)
+    ds.writeUint8(0)
+  },
+  color: (ds, value) => {
+    ds.writeUint32(3)
+    ds.writeUint8(value.r)
+    ds.writeUint8(value.g)
+    ds.writeUint8(value.b)
+  },
+  empty: (ds, value) => {
+    ds.writeUint32(0)
+  },
 }
