@@ -2,9 +2,10 @@ const bytes = 'bytes'
 const color = 'color'
 const cstring = 'cstring'
 const empty = 'empty'
-const fixedstring = 'fixedstring'
+const fixedString = 'fixedString'
 const int32 = 'int32'
 const links = 'links'
+const moduleFlags = 'moduleFlags'
 const uint32 = 'uint32'
 export default {
   'BPM ': uint32,
@@ -45,7 +46,7 @@ export default {
   SCOL: color,
   SELS: uint32,
   SEND: empty,
-  SFFF: bytes,
+  SFFF: moduleFlags,
   SFIN: int32,
   SLNK: links,
   SMIB: int32,
@@ -53,7 +54,7 @@ export default {
   SMII: uint32,
   SMIN: cstring,
   SMIP: int32,
-  SNAM: fixedstring,
+  SNAM: fixedString,
   SPED: uint32,
   SREL: int32,
   SSCL: uint32,

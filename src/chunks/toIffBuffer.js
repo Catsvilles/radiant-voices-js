@@ -31,7 +31,7 @@ const writers = {
   empty: (ds, value) => {
     ds.writeUint32(0)
   },
-  fixedstring: (ds, value) => {
+  fixedString: (ds, value) => {
     ds.writeUint32(32)
     ds.writeString(value, encoding, 32)
   },
