@@ -24,7 +24,12 @@ const transformers = {
   empty: () => true,
   bytes: (ds, length) => Array.from(ds.readUint8Array(length)),
   cstring: (ds, length) => ds.readCString(length),
+  fixedstring: (ds, length) => ds.readCString(length),
   int32: ds => ds.readInt32(),
+  links: (ds, length) => trim(ds.readInt32Array(length / 4), -1),
   uint32: ds => ds.readUint32(),
   color: ds => ({ r: ds.readUint8(), g: ds.readUint8(), b: ds.readUint8() }),
 }
+
+const trim = (a, val) =>
+  a.indexOf(-1) === -1 ? a : a.subarray(0, a.indexOf(-1))

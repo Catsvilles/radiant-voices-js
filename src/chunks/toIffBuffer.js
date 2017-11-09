@@ -13,22 +13,9 @@ export default function toIffBuffer(chunks) {
 }
 
 const writers = {
-  int32: (ds, value) => {
-    ds.writeUint32(4)
-    ds.writeInt32(value)
-  },
-  uint32: (ds, value) => {
-    ds.writeUint32(4)
-    ds.writeUint32(value)
-  },
   bytes: (ds, value) => {
     ds.writeUint32(value.length)
     ds.writeUint8Array(value)
-  },
-  cstring: (ds, value) => {
-    ds.writeUint32(value.length + 1)
-    ds.writeString(value, encoding, value.length)
-    ds.writeUint8(0)
   },
   color: (ds, value) => {
     ds.writeUint32(3)
@@ -36,7 +23,30 @@ const writers = {
     ds.writeUint8(value.g)
     ds.writeUint8(value.b)
   },
+  cstring: (ds, value) => {
+    ds.writeUint32(value.length + 1) // TODO - encode to utf8 first, then get length
+    ds.writeString(value, encoding, value.length)
+    ds.writeUint8(0)
+  },
   empty: (ds, value) => {
     ds.writeUint32(0)
+  },
+  fixedstring: (ds, value) => {
+    ds.writeUint32(32)
+    ds.writeString(value, encoding, 32)
+  },
+  int32: (ds, value) => {
+    ds.writeUint32(4)
+    ds.writeInt32(value)
+  },
+  links: (ds, value) => {
+    ds.writeUint32(value.length * 4)
+    for (const x of value) {
+      ds.writeInt32(x)
+    }
+  },
+  uint32: (ds, value) => {
+    ds.writeUint32(4)
+    ds.writeUint32(value)
   },
 }

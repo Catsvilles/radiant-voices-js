@@ -2,7 +2,9 @@ const bytes = 'bytes'
 const color = 'color'
 const cstring = 'cstring'
 const empty = 'empty'
+const fixedstring = 'fixedstring'
 const int32 = 'int32'
+const links = 'links'
 const uint32 = 'uint32'
 export default {
   'BPM ': uint32,
@@ -45,13 +47,13 @@ export default {
   SEND: empty,
   SFFF: bytes,
   SFIN: int32,
-  SLNK: bytes,
+  SLNK: links,
   SMIB: int32,
   SMIC: uint32,
   SMII: uint32,
   SMIN: cstring,
   SMIP: int32,
-  SNAM: bytes,
+  SNAM: fixedstring,
   SPED: uint32,
   SREL: int32,
   SSCL: uint32,
