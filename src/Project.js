@@ -30,6 +30,7 @@ export default class Project extends Map {
       modulesCurrentLayer: 0,
       timelinePosition: 0,
       selectedModule: 0,
+      lastSelectedGenerator: 0,
       currentPattern: 0,
       currentTrack: 0,
       currentLine: 1,
@@ -58,6 +59,10 @@ export default class Project extends Map {
 
   get sunvoxVersion() {
     return this.get('sunvoxVersion')
+  }
+
+  setSunvoxVersion(version) {
+    return this.mergeIn(['sunvoxVersion'], version)
   }
 
   get basedOnVersion() {
@@ -114,6 +119,10 @@ export default class Project extends Map {
 
   get selectedModule() {
     return this.get('selectedModule')
+  }
+
+  get lastSelectedGenerator() {
+    return this.get('lastSelectedGenerator')
   }
 
   get currentPattern() {

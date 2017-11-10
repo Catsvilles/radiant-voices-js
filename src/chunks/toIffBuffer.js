@@ -1,17 +1,6 @@
 import DataStream from 'datastream-js'
 import encoding from './encoding'
 
-export default function toIffBuffer(chunks) {
-  const ds = new DataStream()
-  for (const { type, data } of chunks) {
-    const dataType = Object.keys(data)[0]
-    const { [dataType]: value } = data
-    ds.writeString(type, encoding, 4)
-    writers[dataType](ds, value)
-  }
-  return ds
-}
-
 const writers = {
   bytes: (ds, value) => {
     ds.writeUint32(value.length)
@@ -55,5 +44,15 @@ const writers = {
     ds.writeUint8(point)
     ds.writeUint8(minor)
     ds.writeUint8(major)
+  },
+}
+export default function toIffBuffer(chunks) {
+  const ds = new DataStream()
+  for (const { type, data } of chunks) {
+    const dataType = Object.keys(data)[0]
+    const { [dataType]: value } = data
+    ds.writeString(type, encoding, 4)
+    writers[dataType](ds, value)
   }
+  return ds
 }

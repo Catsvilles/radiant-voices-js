@@ -7,11 +7,13 @@ import OutputModule from './OutputModule'
 import Pattern from './Pattern'
 import Patterns from './Patterns'
 import Project from './Project'
+import Synth from './Synth'
 import {
-  chunks,
   fromIffBuffer,
   toIffBuffer,
 } from './chunks'
+import { readSunvoxFile } from './reader'
+import { chunks } from './writer'
 
 export {
   Module,
@@ -21,7 +23,9 @@ export {
   Pattern,
   Patterns,
   Project,
+  Synth,
   chunks,
   fromIffBuffer,
+  readSunvoxFile,
   toIffBuffer,
 }

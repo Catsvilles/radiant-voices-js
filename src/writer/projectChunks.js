@@ -1,4 +1,4 @@
-import { chunks } from '.'
+import { chunks } from './index'
 
 export default function *projectChunks(project) {
   const {
@@ -17,6 +17,7 @@ export default function *projectChunks(project) {
     modulesCurrentLayer,
     timelinePosition,
     selectedModule,
+    lastSelectedGenerator,
     currentPattern,
     currentTrack,
     currentLine,
@@ -39,7 +40,7 @@ export default function *projectChunks(project) {
   yield { type: 'CURL', data: { uint32: modulesCurrentLayer } }
   yield { type: 'TIME', data: { int32: timelinePosition } }
   yield { type: 'SELS', data: { uint32: selectedModule } }
-  yield { type: 'LGEN', data: { bytes: [1, 0, 0, 0] } }
+  yield { type: 'LGEN', data: { uint32: lastSelectedGenerator } }
   yield { type: 'PATN', data: { uint32: currentPattern } }
   yield { type: 'PATT', data: { uint32: currentTrack } }
   yield { type: 'PATL', data: { uint32: currentLine } }

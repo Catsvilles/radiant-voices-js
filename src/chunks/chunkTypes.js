@@ -20,7 +20,7 @@ export default {
   CURL: uint32,
   CVAL: uint32,
   GVOL: uint32,
-  LGEN: bytes,
+  LGEN: uint32,
   LMSK: uint32,
   MSCL: uint32,
   MXOF: int32,

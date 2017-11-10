@@ -8,7 +8,8 @@
     "dev": "webpack --progress --colors --watch --env dev",
     "test": "mocha --compilers js:babel-core/register --colors ./test/*.spec.js",
     "test:watch": "mocha --compilers js:babel-core/register --colors -w ./test/*.spec.js",
-    "dumpchunks": "node utils/dumpChunks.js"
+    "dumpchunks": "node utils/dumpChunks.js",
+    "loadsavedump": "node utils/loadSaveDump.js"
   },
   "devDependencies": {
     "babel-cli": "6.24.1",

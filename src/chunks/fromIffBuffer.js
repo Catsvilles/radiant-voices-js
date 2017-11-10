@@ -1,6 +1,28 @@
 import DataStream from 'datastream-js'
 import chunkTypes from './chunkTypes'
 import encoding from './encoding'
+import moduleFlags from '../moduleFlags'
+
+const trim = (a, val) =>
+  a.indexOf(-1) === -1 ? a : a.subarray(0, a.indexOf(-1))
+
+const transformers = {
+  bytes: (ds, length) => Array.from(ds.readUint8Array(length)),
+  color: ds => ({ r: ds.readUint8(), g: ds.readUint8(), b: ds.readUint8() }),
+  cstring: (ds, length) => ds.readCString(length),
+  empty: () => true,
+  fixedString: (ds, length) => ds.readCString(length),
+  int32: ds => ds.readInt32(),
+  links: (ds, length) => trim(ds.readInt32Array(length / 4), -1),
+  moduleFlags: (ds, length) => moduleFlags.fromUint32(ds.readUint32()),
+  uint32: ds => ds.readUint32(),
+  version: ds => ({
+    patch: ds.readUint8(),
+    point: ds.readUint8(),
+    minor: ds.readUint8(),
+    major: ds.readUint8(),
+  }),
+}
 
 export default function *fromIffBuffer(buffer, { raw } = {}) {
   const ds = new DataStream(buffer)
@@ -20,48 +42,3 @@ export default function *fromIffBuffer(buffer, { raw } = {}) {
     ds.position = endPos
   }
 }
-
-const transformers = {
-  bytes: (ds, length) => Array.from(ds.readUint8Array(length)),
-  color: ds => ({ r: ds.readUint8(), g: ds.readUint8(), b: ds.readUint8() }),
-  cstring: (ds, length) => ds.readCString(length),
-  empty: () => true,
-  fixedString: (ds, length) => ds.readCString(length),
-  int32: ds => ds.readInt32(),
-  links: (ds, length) => trim(ds.readInt32Array(length / 4), -1),
-  moduleFlags: (ds, length) => moduleFlags(ds.readUint32()),
-  uint32: ds => ds.readUint32(),
-  version: ds => ({
-    patch: ds.readUint8(),
-    point: ds.readUint8(),
-    minor: ds.readUint8(),
-    major: ds.readUint8(),
-  }),
-}
-
-const trim = (a, val) =>
-  a.indexOf(-1) === -1 ? a : a.subarray(0, a.indexOf(-1))
-
-const moduleFlags = flags => ({
-  mute: !!(flags & 0x80),
-  solo: !!(flags & 0x100),
-  bypass: !!(flags & 0x4000),
-  exists: !!(flags & 0x1),
-  output: !!(flags & 0x2),
-  generator: !!(flags & 0x8),
-  effect: !!(flags & 0x10),
-  initialized: !!(flags & 0x40),
-  getSpeedChanges: !!(flags & 0x400),
-  hidden: !!(flags & 0x800),
-  multi: !!(flags & 0x1000),
-  dontFillInput: !!(flags & 0x2000),
-  useMutex: !!(flags & 0x8000),
-  ignoreMute: !!(flags & 0x10000),
-  noScopeBuffer: !!(flags & 0x20000),
-  outputIsEmpty: !!(flags & 0x40000),
-  open: !!(flags & 0x80000),
-  getPlayCommands: !!(flags & 0x100000),
-  getRenderSetupCommands: !!(flags & 0x200000),
-  feedback: !!(flags & 0x400000),
-  getStopCommands: !!(flags & 0x800000),
-})
