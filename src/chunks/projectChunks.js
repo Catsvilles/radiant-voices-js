@@ -24,26 +24,8 @@ export default function *projectChunks(project) {
     modules,
   } = project
   yield { type: 'SVOX', data: { empty: true } }
-  yield {
-    type: 'VERS', data: {
-      bytes: [
-        sunvoxVersion.get(3),
-        sunvoxVersion.get(2),
-        sunvoxVersion.get(1),
-        sunvoxVersion.get(0),
-      ],
-    },
-  }
-  yield {
-    type: 'BVER', data: {
-      bytes: [
-        basedOnVersion.get(3),
-        basedOnVersion.get(2),
-        basedOnVersion.get(1),
-        basedOnVersion.get(0),
-      ],
-    },
-  }
+  yield { type: 'VERS', data: { version: sunvoxVersion.toJS() } }
+  yield { type: 'BVER', data: { version: basedOnVersion.toJS() } }
   yield { type: 'BPM ', data: { uint32: initialBpm } }
   yield { type: 'SPED', data: { uint32: initialTpl } }
   yield { type: 'TGRD', data: { uint32: timeGrid } }

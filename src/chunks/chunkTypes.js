@@ -7,9 +7,10 @@ const int32 = 'int32'
 const links = 'links'
 const moduleFlags = 'moduleFlags'
 const uint32 = 'uint32'
+const version = 'version'
 export default {
   'BPM ': uint32,
-  BVER: bytes,
+  BVER: version,
   CHDT: bytes,
   CHFF: bytes,
   CHFR: uint32,
@@ -68,5 +69,5 @@ export default {
   TGD2: uint32,
   TGRD: uint32,
   TIME: int32,
-  VERS: bytes,
+  VERS: version,
 }

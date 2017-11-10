@@ -32,9 +32,9 @@ describe('empty Project', () => {
   it('has no patterns', () => {
     expect(emptyProject.patterns.size).to.equal(0)
   })
-  it('appear to be built with SunVox 1.9.2.0', () => {
-    expect(emptyProject.sunvoxVersion.toJS()).to.eql([1, 9, 2, 0])
-    expect(emptyProject.basedOnVersion.toJS()).to.eql([1, 9, 2, 0])
+  it('appear to be built with SunVox 1.9.3.0', () => {
+    expect(emptyProject.sunvoxVersion.toJS()).to.eql({ major: 1, minor: 9, point: 3, patch: 0 })
+    expect(emptyProject.basedOnVersion.toJS()).to.eql({ major: 1, minor: 9, point: 3, patch: 0 })
   })
   it('has initial BPM of 125', () => {
     expect(emptyProject.initialBpm).to.equal(125)

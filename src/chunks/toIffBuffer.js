@@ -17,11 +17,11 @@ const writers = {
     ds.writeUint32(value.length)
     ds.writeUint8Array(value)
   },
-  color: (ds, value) => {
+  color: (ds, { r, g, b }) => {
     ds.writeUint32(3)
-    ds.writeUint8(value.r)
-    ds.writeUint8(value.g)
-    ds.writeUint8(value.b)
+    ds.writeUint8(r)
+    ds.writeUint8(g)
+    ds.writeUint8(b)
   },
   cstring: (ds, value) => {
     ds.writeUint32(value.length + 1) // TODO - encode to utf8 first, then get length
@@ -49,4 +49,11 @@ const writers = {
     ds.writeUint32(4)
     ds.writeUint32(value)
   },
+  version: (ds, { major, minor, point, patch }) => {
+    ds.writeUint32(4)
+    ds.writeUint8(patch)
+    ds.writeUint8(point)
+    ds.writeUint8(minor)
+    ds.writeUint8(major)
+  }
 }

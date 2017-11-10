@@ -12,7 +12,8 @@ export default function *fromIffBuffer(buffer, { raw } = {}) {
     const endPos = startPos + chunkLength
     const { [type]: dataType } = chunkTypes
     if (dataType !== undefined) {
-      yield { type, data: { [dataType]: transformers[dataType](ds, length) } }
+      const value = transformers[dataType](ds, length)
+      yield { type, data: { [dataType]: value } }
     } else if (raw) {
       yield { type, data: { raw: ds.readUint8Array(length) } }
     }
@@ -21,15 +22,21 @@ export default function *fromIffBuffer(buffer, { raw } = {}) {
 }
 
 const transformers = {
-  empty: () => true,
   bytes: (ds, length) => Array.from(ds.readUint8Array(length)),
+  color: ds => ({ r: ds.readUint8(), g: ds.readUint8(), b: ds.readUint8() }),
   cstring: (ds, length) => ds.readCString(length),
+  empty: () => true,
   fixedString: (ds, length) => ds.readCString(length),
   int32: ds => ds.readInt32(),
   links: (ds, length) => trim(ds.readInt32Array(length / 4), -1),
   moduleFlags: (ds, length) => moduleFlags(ds.readUint32()),
   uint32: ds => ds.readUint32(),
-  color: ds => ({ r: ds.readUint8(), g: ds.readUint8(), b: ds.readUint8() }),
+  version: ds => ({
+    patch: ds.readUint8(),
+    point: ds.readUint8(),
+    minor: ds.readUint8(),
+    major: ds.readUint8(),
+  }),
 }
 
 const trim = (a, val) =>
