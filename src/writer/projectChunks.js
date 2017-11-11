@@ -7,6 +7,7 @@ export default function *projectChunks(project) {
     initialBpm,
     initialTpl,
     timeGrid,
+    timeGrid2,
     globalVolume,
     name,
     modulesScale,
@@ -30,6 +31,7 @@ export default function *projectChunks(project) {
   yield { type: 'BPM ', data: { uint32: initialBpm } }
   yield { type: 'SPED', data: { uint32: initialTpl } }
   yield { type: 'TGRD', data: { uint32: timeGrid } }
+  yield { type: 'TGD2', data: { uint32: timeGrid2 } }
   yield { type: 'GVOL', data: { uint32: globalVolume } }
   yield { type: 'NAME', data: { cstring: name } }
   yield { type: 'MSCL', data: { uint32: modulesScale } }
