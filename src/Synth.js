@@ -4,14 +4,13 @@ export default class Synth extends Map {
 
   static empty() {
     return new Synth().merge({
-      initialized: true,
       module: null,
       sunvoxVersion: new Map({ major: 1, minor: 9, point: 3, patch: 0 }),
     })
   }
 
   static isSynth(val) {
-    return val && val instanceof Synth && val.get('initialized')
+    return val && val instanceof Synth
   }
 
   get module() {

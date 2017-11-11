@@ -34,6 +34,18 @@ const writers = {
       ds.writeInt32(x)
     }
   },
+  moduleFlags: (ds, value) => {
+    ds.writeUint32(4)
+    ds.writeUint32(value.toUint32())
+  },
+  patternAppearanceFlags: (ds, value) => {
+    ds.writeUint32(4)
+    ds.writeUint32(value.toUint32())
+  },
+  patternFlags: (ds, value) => {
+    ds.writeUint32(4)
+    ds.writeUint32(value.toUint32())
+  },
   uint32: (ds, value) => {
     ds.writeUint32(4)
     ds.writeUint32(value)

@@ -6,6 +6,8 @@ const fixedString = 'fixedString'
 const int32 = 'int32'
 const links = 'links'
 const moduleFlags = 'moduleFlags'
+const patternAppearanceFlags = 'patternAppearanceFlags'
+const patternFlags = 'patternFlags'
 const uint32 = 'uint32'
 const version = 'version'
 export default {
@@ -34,9 +36,9 @@ export default {
   PCHN: uint32,
   PDTA: bytes,
   PEND: empty,
-  PFFF: bytes,
+  PFFF: patternFlags,
   PFGC: color,
-  PFLG: bytes,
+  PFLG: patternAppearanceFlags,
   PICO: bytes,
   PLIN: uint32,
   PNME: cstring,

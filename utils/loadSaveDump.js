@@ -6,6 +6,7 @@ const path = process.argv[process.argv.length - 1]
 const f = fs.readFileSync(path, null)
 const chunks = rv.fromIffBuffer(f)
 const project = rv.readSunvoxFile(chunks)
+console.log(project.modules)
 const chunks2 = rv.chunks(project)
 
 for (const { type, data } of chunks2) {

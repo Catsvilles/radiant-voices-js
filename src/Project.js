@@ -10,7 +10,6 @@ export default class Project extends Map {
   static empty() {
     const outputModule = new OutputModule()
     return new Project().merge({
-      initialized: true,
       modules: new Modules([outputModule]),
       moduleConnections: new ModuleConnections(),
       outputModule,
@@ -22,6 +21,7 @@ export default class Project extends Map {
       globalVolume: 80,
       name: 'Project',
       timeGrid: 4,
+      timeGrid2: 4,
       modulesScale: 256,
       modulesZoom: 256,
       modulesXOffset: 0,
@@ -38,11 +38,15 @@ export default class Project extends Map {
   }
 
   static isProject(val) {
-    return val && val instanceof Project && val.get('initialized')
+    return val && val instanceof Project
   }
 
   get modules() {
     return this.get('modules')
+  }
+
+  pushModule(module) {
+    return this.set('modules', this.modules.push(module))
   }
 
   get moduleConnections() {
@@ -55,6 +59,10 @@ export default class Project extends Map {
 
   get patterns() {
     return this.get('patterns')
+  }
+
+  pushPattern(pattern) {
+    return this.set('patterns', this.patterns.push(pattern))
   }
 
   get sunvoxVersion() {
@@ -73,20 +81,40 @@ export default class Project extends Map {
     return this.get('initialBpm')
   }
 
+  setInitialBpm(uint32) {
+    return this.set('initialBpm', uint32)
+  }
+
   get initialTpl() {
     return this.get('initialTpl')
+  }
+
+  setInitialTpl(uint32) {
+    return this.set('initialTpl', uint32)
   }
 
   get globalVolume() {
     return this.get('globalVolume')
   }
 
+  setGlobalVolume(uint32) {
+    return this.set('globalVolume', uint32)
+  }
+
   get name() {
     return this.get('name')
   }
 
+  setName(cstring) {
+    return this.set('name', cstring)
+  }
+
   get timeGrid() {
     return this.get('timeGrid')
+  }
+
+  get timeGrid2() {
+    return this.get('timeGrid2')
   }
 
   get modulesScale() {

@@ -1,7 +1,9 @@
 import DataStream from 'datastream-js'
 import chunkTypes from './chunkTypes'
 import encoding from './encoding'
-import moduleFlags from '../moduleFlags'
+import ModuleFlags from '../ModuleFlags'
+import PatternAppearanceFlags from '../PatternAppearanceFlags'
+import PatternFlags from '../PatternFlags'
 
 const trim = (a, val) =>
   a.indexOf(-1) === -1 ? a : a.subarray(0, a.indexOf(-1))
@@ -14,7 +16,9 @@ const transformers = {
   fixedString: (ds, length) => ds.readCString(length),
   int32: ds => ds.readInt32(),
   links: (ds, length) => trim(ds.readInt32Array(length / 4), -1),
-  moduleFlags: (ds, length) => moduleFlags.fromUint32(ds.readUint32()),
+  moduleFlags: ds => ModuleFlags.fromUint32(ds.readUint32()).toJS(),
+  patternAppearanceFlags: ds => PatternAppearanceFlags.fromUint32(ds.readUint32()).toJS(),
+  patternFlags: ds => PatternFlags.fromUint32(ds.readUint32()).toJS(),
   uint32: ds => ds.readUint32(),
   version: ds => ({
     patch: ds.readUint8(),

@@ -8,5 +8,8 @@ export default chunks => {
       return readProject(chunks)
     case 'SSYN':
       return readSynth(chunks)
+    default:
+      console.log(`Unknown header "${type}"`)
+      return
   }
 }

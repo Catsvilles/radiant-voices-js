@@ -1,4 +1,5 @@
 export default function *moduleChunks(module) {
+  yield { type: 'SFFF', data: { moduleFlags: module.flags.toJS() } }
 }
         // if in_project is None:
         //     in_project = self.parent is not None
