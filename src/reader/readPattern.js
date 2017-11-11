@@ -5,7 +5,11 @@ const handlers = {
   PLIN: (p, _, { uint32 }) => p.setLines(uint32),
   PYSZ: (p, _, { uint32 }) => p.setHeight(uint32),
   PFLG: (p, _, { patternAppearanceFlags }) => p.setAppearanceFlags(patternAppearanceFlags),
+  PFGC: (p, _, { color }) => p.setForegroundColor(color),
+  PBGC: (p, _, { color }) => p.setBackgroundColor(color),
   PFFF: (p, _, { patternFlags }) => p.setFlags(patternFlags),
+  PXXX: (p, _, { int32 }) => p.setX(int32),
+  PYYY: (p, _, { int32 }) => p.setY(int32),
   PEND: true,
 }
 
