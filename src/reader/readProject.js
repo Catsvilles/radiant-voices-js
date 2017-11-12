@@ -1,3 +1,4 @@
+import Modules from '../Modules'
 import Project from '../Project'
 import readPattern from './readPattern'
 import readModule from './readModule'
@@ -15,7 +16,7 @@ const handlers = {
 }
 
 export default chunks => {
-  let project = Project.empty()
+  let project = Project.empty().set('modules', Modules.empty())
   for (const chunk of chunks) {
     const { type, data } = chunk
     const { [type]: handler } = handlers

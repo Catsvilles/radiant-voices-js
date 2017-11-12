@@ -1,22 +1,19 @@
 export default function *moduleChunks(module) {
   yield { type: 'SFFF', data: { moduleFlags: module.flags.toJS() } }
+  yield { type: 'SNAM', data: { fixedString: module.name } }
+  if (module.type) {
+    yield { type: 'STYP', data: { cstring: module.type } }
+  }
+  yield { type: 'SFIN', data: { int32: module.finetune } }
+  yield { type: 'SREL', data: { int32: module.relativeNote } }
+  yield { type: 'SXXX', data: { int32: module.x } }
+  yield { type: 'SYYY', data: { int32: module.y } }
+  yield { type: 'SCOL', data: { color: module.color.toJS() } }
+  yield { type: 'SMIC', data: { uint32: module.midiInChannel } }
+  yield { type: 'SMIB', data: { int32: module.midiInBank } }
+  yield { type: 'SMIP', data: { int32: module.midiInProgram } }
+  yield { type: 'SLNK', data: { links: new Int32Array(module.links) } }
+  for (const value of module.controllerValues) {
+    yield { type: 'CVAL', data: { uint32: value } }
+  }
 }
-        // if in_project is None:
-        //     in_project = self.parent is not None
-        // yield (b'SFFF', pack('<I', self.flags))
-        // yield (b'SNAM', self.name.encode(ENCODING)[:32].ljust(32, b'\0'))
-        // if self.mtype is not None and self.mtype != 'Output':
-        //     yield (b'STYP', self.mtype.encode(ENCODING) + b'\0')
-        // yield (b'SFIN', pack('<i', self.finetune))
-        // yield (b'SREL', pack('<i', self.relative_note))
-        // if in_project:
-        //     yield (b'SXXX', pack('<i', self.x))
-        //     yield (b'SYYY', pack('<i', self.y))
-        //     yield (b'SZZZ', pack('<i', self.layer))
-        // yield (b'SSCL', pack('<I', self.scale))
-        // if in_project:
-        //     yield (b'SVPR', pack('<I', self.visualization))
-        // yield (b'SCOL', pack('BBB', *self.color))
-        // yield (b'SMIC', pack('<i', self.midi_out_channel))
-        // yield (b'SMIB', pack('<i', self.midi_out_bank))
-        // yield (b'SMIP', pack('<i', self.midi_out_program))

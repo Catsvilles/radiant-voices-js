@@ -1,4 +1,7 @@
 import { Map } from 'extendable-immutable'
+import Color from './Color'
+import ControllerValues from './ControllerValues'
+import Links from './Links'
 import ModuleFlags from './ModuleFlags'
 
 export default class Module extends Map {
@@ -6,11 +9,47 @@ export default class Module extends Map {
   static empty() {
     return new Module({
       flags: ModuleFlags.fromUint32(0),
+      name: '',
+      type: null,
+      finetune: 0,
+      relativeNote: 0,
+      x: 512,
+      y: 512,
+      color: new Color({ r: 255, g: 255, b: 255 }),
+      midiInChannel: 0,
+      midiInBank: -1,
+      midiInProgram: -1,
+      links: new Links(),
+      controllerValues: new ControllerValues(),
     })
   }
 
   static isModule(val) {
     return val && val instanceof Module
+  }
+
+  get color() {
+    return this.get('color')
+  }
+
+  setColor(color) {
+    return this.mergeIn(['color'], color)
+  }
+
+  get controllerValues() {
+    return this.get('controllerValues')
+  }
+
+  pushControllerValue(uint32) {
+    return this.set('controllerValues', this.controllerValues.push(uint32))
+  }
+
+  get finetune() {
+    return this.get('finetune')
+  }
+
+  setFinetune(int32) {
+    return this.set('finetune', int32)
   }
 
   get flags() {
@@ -19,6 +58,78 @@ export default class Module extends Map {
 
   setFlags(moduleFlags) {
     return this.mergeIn(['flags'], moduleFlags)
+  }
+
+  get links() {
+    return this.get('links')
+  }
+
+  setLinks(links) {
+    return this.set('links', links)
+  }
+
+  get midiInChannel() {
+    return this.get('midiInChannel')
+  }
+
+  setMidiInChannel(uint32) {
+    return this.set('midiInChannel', uint32)
+  }
+
+  get midiInBank() {
+    return this.get('midiInBank')
+  }
+
+  setMidiInBank(int32) {
+    return this.set('midiInBank', int32)
+  }
+
+  get midiInProgram() {
+    return this.get('midiInProgram')
+  }
+
+  setMidiInProgram(int32) {
+    return this.set('midiInProgram', int32)
+  }
+
+  get name() {
+    return this.get('name')
+  }
+
+  setName(val) {
+    return this.set('name', val)
+  }
+
+  get relativeNote() {
+    return this.get('relativeNote')
+  }
+
+  setRelativeNote(int32) {
+    return this.set('relativeNote', int32)
+  }
+
+  get type() {
+    return this.get('type')
+  }
+
+  setType(cstring) {
+    return this.set('type', cstring)
+  }
+
+  get x() {
+    return this.get('x')
+  }
+
+  setX(int32) {
+    return this.set('x', int32)
+  }
+
+  get y() {
+    return this.get('y')
+  }
+
+  setY(int32) {
+    return this.set('y', int32)
   }
 
 }

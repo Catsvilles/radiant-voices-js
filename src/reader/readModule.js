@@ -1,7 +1,20 @@
+import Links from '../Links'
 import Module from '../Module'
 
 const handlers = {
   SEND: true,
+  SNAM: (m, _, { fixedString }) => m.setName(fixedString),
+  STYP: (m, _, { cstring }) => m.setType(cstring),
+  SFIN: (m, _, { int32 }) => m.setFinetune(int32),
+  SREL: (m, _, { int32 }) => m.setRelativeNote(int32),
+  SXXX: (m, _, { int32 }) => m.setX(int32),
+  SYYY: (m, _, { int32 }) => m.setY(int32),
+  SCOL: (m, _, { color }) => m.setColor(color),
+  SMIC: (m, _, { uint32 }) => m.setMidiInChannel(uint32),
+  SMIB: (m, _, { int32 }) => m.setMidiInBank(int32),
+  SMIP: (m, _, { int32 }) => m.setMidiInProgram(int32),
+  SLNK: (m, _, { links }) => m.setLinks(new Links(links)),
+  CVAL: (m, _, { uint32 }) => m.pushControllerValue(uint32),
 }
 
 export default (chunks, { moduleFlags }) => {
@@ -17,9 +30,8 @@ export default (chunks, { moduleFlags }) => {
     if (handler) {
       if (handler === true) {
         return module
-      } else {
-        module = handler(module, chunks, data)
       }
+      module = handler(module, chunks, data)
     } else {
       console.log(`readModule: no handler for "${type}"`)
     }
