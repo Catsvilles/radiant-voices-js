@@ -5,8 +5,8 @@ import PatternFlags from './PatternFlags'
 
 export default class Pattern extends Map {
 
-  static empty() {
-    return new Pattern({
+  constructor(props) {
+    super({
       data: new Uint8Array(0),
       appearanceFlags: PatternAppearanceFlags.fromUint32(0),
       icon: new Uint8Array(32),
@@ -18,6 +18,7 @@ export default class Pattern extends Map {
       height: 32,
       lines: 0,
       tracks: 0,
+      ...props,
     })
   }
 

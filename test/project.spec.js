@@ -6,10 +6,10 @@ expect()
 import {
   Project,
   Module,
-  OutputModule,
+  m,
 } from '../src/index'
 
-const emptyProject = Project.empty()
+const emptyProject = new Project()
 
 describe('empty Project', () => {
   it('is a Project', () => {
@@ -17,7 +17,7 @@ describe('empty Project', () => {
   })
   it('has an output module', () => {
     const { outputModule } = emptyProject
-    expect(OutputModule.isOutputModule(outputModule)).to.equal(true)
+    expect(m.Output.isOutput(outputModule.type)).to.equal(true)
     expect(Module.isModule(outputModule)).to.equal(true)
   })
   it('has one module, the output module', () => {

@@ -4,10 +4,10 @@ export default function *patternChunks(pattern) {
   yield { type: 'PLIN', data: { uint32: pattern.lines } }
   yield { type: 'PYSZ', data: { uint32: pattern.height } }
   yield { type: 'PICO', data: { bytes: pattern.icon } }
-  yield { type: 'PFLG', data: { patternAppearanceFlags: pattern.appearanceFlags.toJS() } }
-  yield { type: 'PFGC', data: { color: pattern.foregroundColor.toJS() } }
-  yield { type: 'PBGC', data: { color: pattern.backgroundColor.toJS() } }
-  yield { type: 'PFFF', data: { patternFlags: pattern.flags.toJS() } }
+  yield { type: 'PFLG', data: { patternAppearanceFlags: pattern.appearanceFlags } }
+  yield { type: 'PFGC', data: { color: pattern.foregroundColor } }
+  yield { type: 'PBGC', data: { color: pattern.backgroundColor } }
+  yield { type: 'PFFF', data: { patternFlags: pattern.flags } }
   yield { type: 'PXXX', data: { int32: pattern.x } }
   yield { type: 'PYYY', data: { int32: pattern.y } }
 }

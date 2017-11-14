@@ -11,7 +11,7 @@ import {
   Project,
 } from '../src/index'
 
-const emptyProject = Project.empty()
+const emptyProject = new Project()
 const emptyChunks = List(chunks(emptyProject))
 
 describe('chunks of an empty Project', () => {

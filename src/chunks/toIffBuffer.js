@@ -1,3 +1,4 @@
+import { TextEncoder } from 'text-encoding'
 import DataStream from 'datastream-js'
 import encoding from './encoding'
 
@@ -17,12 +18,18 @@ const writers = {
     ds.writeString(value, encoding, value.length)
     ds.writeUint8(0)
   },
-  empty: (ds, value) => {
+  empty: ds => {
     ds.writeUint32(0)
   },
   fixedString: (ds, value) => {
     ds.writeUint32(32)
-    ds.writeString(value, encoding, 32)
+    const enc = new TextEncoder(encoding).encode(value)
+    if (enc.length >= 32) {
+      ds.writeUint8Array(enc.subarray(0, 32))
+    } else {
+      ds.writeUint8Array(enc)
+      ds.writeString('', 'ASCII', 32 - enc.length)
+    }
   },
   int32: (ds, value) => {
     ds.writeUint32(4)
@@ -66,5 +73,6 @@ export default function toIffBuffer(chunks) {
     ds.writeString(type, encoding, 4)
     writers[dataType](ds, value)
   }
+  ds.position = 0
   return ds
 }

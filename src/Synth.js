@@ -2,10 +2,11 @@ import { Map } from 'extendable-immutable'
 
 export default class Synth extends Map {
 
-  static empty() {
-    return new Synth().merge({
+  constructor(props) {
+    super({
       module: null,
       sunvoxVersion: new Map({ major: 1, minor: 9, point: 3, patch: 0 }),
+      ...props,
     })
   }
 

@@ -18,7 +18,7 @@ const handlers = {
 }
 
 export default (chunks, { moduleFlags }) => {
-  let module = Module.empty().setFlags(moduleFlags)
+  let module = new Module().setFlags(moduleFlags)
   while (true) {
     const chunk = chunks.next()
     const { value, done } = chunk

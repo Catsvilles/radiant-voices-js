@@ -15,7 +15,7 @@ const handlers = {
 }
 
 export default (chunks, { bytes }) => {
-  let pattern = Pattern.empty().setData(bytes)
+  let pattern = new Pattern().setData(bytes)
   while (true) {
     const chunk = chunks.next()
     const { value, done } = chunk
@@ -27,9 +27,8 @@ export default (chunks, { bytes }) => {
     if (handler) {
       if (handler === true) {
         return pattern
-      } else {
-        pattern = handler(pattern, chunks, data)
       }
+      pattern = handler(pattern, chunks, data)
     } else {
       console.log(`readPattern: no handler for "${type}"`)
     }

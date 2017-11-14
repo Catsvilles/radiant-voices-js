@@ -3,11 +3,12 @@ import Color from './Color'
 import ControllerValues from './ControllerValues'
 import Links from './Links'
 import ModuleFlags from './ModuleFlags'
+import m from './modtypes'
 
 export default class Module extends Map {
 
-  static empty() {
-    return new Module({
+  constructor(...props) {
+    super({
       flags: ModuleFlags.fromUint32(0),
       name: '',
       type: null,
@@ -21,6 +22,7 @@ export default class Module extends Map {
       midiInProgram: -1,
       links: new Links(),
       controllerValues: new ControllerValues(),
+      ...props,
     })
   }
 
@@ -112,8 +114,11 @@ export default class Module extends Map {
     return this.get('type')
   }
 
-  setType(cstring) {
-    return this.set('type', cstring)
+  setType(Type) {
+    if (typeof Type === 'string') {
+      Type = m.typeClassMap[Type]
+    }
+    return this.set('type', new Type())
   }
 
   get x() {

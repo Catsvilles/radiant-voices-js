@@ -1,18 +1,18 @@
 import { Map } from 'extendable-immutable'
 
+import Module from './Module'
 import Modules from './Modules'
 import ModuleConnections from './ModuleConnections'
-import OutputModule from './OutputModule'
 import Patterns from './Patterns'
+import Output from './modtypes/Output'
 
 export default class Project extends Map {
 
-  static empty() {
-    const outputModule = new OutputModule()
-    return new Project().merge({
+  constructor(props) {
+    const outputModule = new Module().setType(Output)
+    super({
       modules: new Modules([outputModule]),
       moduleConnections: new ModuleConnections(),
-      outputModule,
       patterns: new Patterns(),
       sunvoxVersion: new Map({ major: 1, minor: 9, point: 3, patch: 0 }),
       basedOnVersion: new Map({ major: 1, minor: 9, point: 3, patch: 0 }),
@@ -34,6 +34,7 @@ export default class Project extends Map {
       currentPattern: 0,
       currentTrack: 0,
       currentLine: 1,
+      ...props,
     })
   }
 
@@ -54,7 +55,7 @@ export default class Project extends Map {
   }
 
   get outputModule() {
-    return this.get('outputModule')
+    return this.get('modules').first()
   }
 
   get patterns() {

@@ -7,8 +7,10 @@ const f = fs.readFileSync(path, null)
 const chunks = rv.fromIffBuffer(f)
 const project = rv.readSunvoxFile(chunks)
 const chunks2 = rv.chunks(project)
+const buffer = rv.toIffBuffer(chunks2)
+const chunks3 = rv.fromIffBuffer(buffer)
 
-for (const { type, data } of chunks2) {
+for (const { type, data } of chunks3) {
   process.stdout.write(type + '    ')
   const { bytes, raw } = data
   if (bytes || raw) {

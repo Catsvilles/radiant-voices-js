@@ -16,7 +16,7 @@ const handlers = {
 }
 
 export default chunks => {
-  let project = Project.empty().set('modules', Modules.empty())
+  let project = new Project({ modules: new Modules() })
   for (const chunk of chunks) {
     const { type, data } = chunk
     const { [type]: handler } = handlers

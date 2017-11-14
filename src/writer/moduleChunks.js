@@ -1,14 +1,14 @@
 export default function *moduleChunks(module) {
-  yield { type: 'SFFF', data: { moduleFlags: module.flags.toJS() } }
+  yield { type: 'SFFF', data: { moduleFlags: module.flags } }
   yield { type: 'SNAM', data: { fixedString: module.name } }
-  if (module.type) {
-    yield { type: 'STYP', data: { cstring: module.type } }
+  if (module.type && module.type.name) {
+    yield { type: 'STYP', data: { cstring: module.type.name } }
   }
   yield { type: 'SFIN', data: { int32: module.finetune } }
   yield { type: 'SREL', data: { int32: module.relativeNote } }
   yield { type: 'SXXX', data: { int32: module.x } }
   yield { type: 'SYYY', data: { int32: module.y } }
-  yield { type: 'SCOL', data: { color: module.color.toJS() } }
+  yield { type: 'SCOL', data: { color: module.color } }
   yield { type: 'SMIC', data: { uint32: module.midiInChannel } }
   yield { type: 'SMIB', data: { int32: module.midiInBank } }
   yield { type: 'SMIP', data: { int32: module.midiInProgram } }
