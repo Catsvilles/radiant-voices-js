@@ -2,7 +2,6 @@ import Links from '../Links'
 import Module from '../Module'
 
 const handlers = {
-  SEND: true,
   SNAM: (m, _, { fixedString }) => m.setName(fixedString),
   STYP: (m, _, { cstring }) => m.setType(cstring),
   SFIN: (m, _, { int32 }) => m.setFinetune(int32),
@@ -15,6 +14,12 @@ const handlers = {
   SMIP: (m, _, { int32 }) => m.setMidiInProgram(int32),
   SLNK: (m, _, { links }) => m.setLinks(new Links(links)),
   CVAL: (m, _, { uint32 }) => m.pushControllerValue(uint32),
+  CHNK: m => m,
+  CHNM: (m, _, { uint32 }) => m.withChunkNumber(uint32),
+  CHDT: (m, _, { bytes }) => m.withChunkData(bytes),
+  CHFF: (m, _, { bytes }) => m.withChunkFlags(bytes),
+  CHFR: (m, _, { uint32 }) => m.withChunkRate(uint32),
+  SEND: true,
 }
 
 export default (chunks, { moduleFlags }) => {

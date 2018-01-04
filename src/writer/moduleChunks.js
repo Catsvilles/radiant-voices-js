@@ -16,4 +16,9 @@ export default function *moduleChunks(module) {
   for (const value of module.controllerValues) {
     yield { type: 'CVAL', data: { uint32: value } }
   }
+  if (module.type && module.type.dataChunks) {
+    for (const chunk of module.type.dataChunks()) {
+      yield chunk
+    }
+  }
 }

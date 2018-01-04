@@ -14,4 +14,32 @@ export default class ModType extends Map {
     return this.constructor.name()
   }
 
+  get options() {
+    return this.get('options')
+  }
+
+  setOptions(options) {
+    return this.set('options', options)
+  }
+
+  get _chnm() {
+    return this.get('_chnm')
+  }
+
+  withChunkNumber(uint32) {
+    return this.set('_chnm', uint32)
+  }
+
+  withChunkData(bytes) {
+    return this
+  }
+
+  withChunkFlags(bytes) {
+    return this
+  }
+
+  withChunkRate(uint32) {
+    return this
+  }
+
 }

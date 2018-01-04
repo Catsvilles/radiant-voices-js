@@ -102,6 +102,14 @@ export default class Module extends Map {
     return this.set('name', val)
   }
 
+  get options() {
+    return this.type.options
+  }
+
+  setOptions(options) {
+    return this.set('options', options.setOptions(options))
+  }
+
   get relativeNote() {
     return this.get('relativeNote')
   }
@@ -135,6 +143,22 @@ export default class Module extends Map {
 
   setY(int32) {
     return this.set('y', int32)
+  }
+
+  withChunkNumber(uint32) {
+    return this.type ? this.set('type', this.type.withChunkNumber(uint32)) : this
+  }
+
+  withChunkData(bytes) {
+    return this.type ? this.set('type', this.type.withChunkData(bytes)) : this
+  }
+
+  withChunkFlags(bytes) {
+    return this.type ? this.set('type', this.type.withChunkFlags(bytes)) : this
+  }
+
+  withChunkRate(uint32) {
+    return this.type ? this.set('type', this.type.withChunkRate(uint32)) : this
   }
 
 }
