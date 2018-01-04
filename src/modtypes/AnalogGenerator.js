@@ -3,20 +3,20 @@ import Options, { flag, inverted } from './Options'
 
 const OPTIONS_CHNM = 0x01
 
-const OPTIONS = new Options({
-  volumeEnvelopeScalingPerKey: { offset: 0x00, type: flag },
-  filterEnvelopeScalingPerKey: { offset: 0x01, type: flag },
-  volumeScalingPerKey: { offset: 0x02, type: flag },
-  filterFrequencyScalingPerKey: { offset: 0x03, type: flag },
-  velocityDependentFilterFrequency: { offset: 0x04, type: flag },
-  frequencyDiv2: { offset: 0x05, type: flag },
-  smoothFrequencyChange: { offset: 0x06, type: inverted },
-  filterFrequencyScalingPerKeyReverse: { offset: 0x07, type: flag },
-  retainPhase: { offset: 0x08, type: flag },
-  randomPhase: { offset: 0x09, type: flag },
-  filterFrequencyEqualsNoteFrequency: { offset: 0x0a, type: flag },
-  velocityDependentFilterResonance: { offset: 0x0b, type: flag },
-})
+const OPTIONS = new Options([
+  { volumeEnvelopeScalingPerKey: flag },
+  { filterEnvelopeScalingPerKey: flag },
+  { volumeScalingPerKey: flag },
+  { filterFrequencyScalingPerKey: flag },
+  { velocityDependentFilterFrequency: flag },
+  { frequencyDiv2: flag },
+  { smoothFrequencyChange: inverted },
+  { filterFrequencyScalingPerKeyReverse: flag },
+  { retainPhase: flag },
+  { randomPhase: flag },
+  { filterFrequencyEqualsNoteFrequency: flag },
+  { velocityDependentFilterResonance: flag },
+])
 
 export default class AnalogGenerator extends ModType {
 

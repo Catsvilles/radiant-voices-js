@@ -53,7 +53,14 @@ class OptionsChunk extends Map {
 export default class Options {
 
   constructor(spec) {
-    this.spec = spec
+    this.spec = {}
+    for (let offset = 0; offset < spec.length; ++offset) {
+      const item = spec[offset]
+      for (const key in item) {
+        const type = item[key]
+        this.spec[key] = { offset, type }
+      }
+    }
   }
 
   chunk() {
