@@ -6,7 +6,7 @@ export const inverted = Symbol('inverted')
 
 const PADDING_SIZE = 64
 
-class OptionsChunk extends Map {
+class OptionsInstance extends Map {
 
   constructor(length) {
     let data = new List()
@@ -16,8 +16,8 @@ class OptionsChunk extends Map {
     super({ data })
   }
 
-  static isOptionsChunk(val) {
-    return val && val instanceof OptionsChunk
+  static isOptionsInstance(val) {
+    return val && val instanceof OptionsInstance
   }
 
   get meta() {
@@ -63,8 +63,8 @@ export default class Options {
     }
   }
 
-  chunk() {
-    const chunk = new OptionsChunk(Object.keys(this.spec).length)
+  instance() {
+    const chunk = new OptionsInstance(Object.keys(this.spec).length)
     for (const [key, { offset, type } = {}] of Object.entries(this.spec)) {
       Object.defineProperty(chunk, key, {
         get: function () {
