@@ -17,4 +17,8 @@ describe('Analog Generator', () => {
   it('has an option that defaults to true', () => {
     expect(module.options.smoothFrequencyChange).to.equal(true)
   })
+  it('has an option that can change from false to true', () => {
+    const m = module.setOptions(module.options.setSmoothFrequencyChange(false))
+    expect(m.options.smoothFrequencyChange).to.equal(false)
+  })
 })

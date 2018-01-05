@@ -8,20 +8,8 @@ const PADDING_SIZE = 64
 
 class OptionsInstance extends Map {
 
-  constructor(length) {
-    let data = new List()
-    for (let i = 0; i < length; ++i) {
-      data = data.push(0)
-    }
-    super({ data })
-  }
-
   static isOptionsInstance(val) {
     return val && val instanceof OptionsInstance
-  }
-
-  get meta() {
-    return this.get('meta')
   }
 
   get data() {
@@ -53,45 +41,57 @@ class OptionsInstance extends Map {
 export default class Options {
 
   constructor(spec) {
-    this.spec = {}
+    this.defaultData = new List()
+    this.offsets = {}
+    this.types = {}
     for (let offset = 0; offset < spec.length; ++offset) {
       const item = spec[offset]
       for (const key in item) {
         const type = item[key]
-        this.spec[key] = { offset, type }
+        this.offsets[key] = offset
+        this.types[key] = type
+        this.defaultData = this.defaultData.push(0)
       }
     }
   }
 
-  instance() {
-    const chunk = new OptionsInstance(Object.keys(this.spec).length)
-    for (const [key, { offset, type } = {}] of Object.entries(this.spec)) {
-      Object.defineProperty(chunk, key, {
-        get: function () {
-          switch (type) {
+  instance(existing) {
+    const i = existing || new OptionsInstance({ data: this.defaultData })
+    return new Proxy(i, {
+      get: (target, name) => {
+        const offset = this.offsets[name]
+        if (offset !== undefined) {
+          const val = target.data.get(offset)
+          switch (this.types[name]) {
             case flag:
-              return !!this.data.get(offset)
+              return !!val
             case inverted:
-              return !this.data.get(offset)
+              return !val
             case int:
-              return this.data.get(offset)
+              return val
           }
-        },
-      })
-      const setterName = `set${key[0].toUpperCase()}${key.substr(1)}`
-      chunk[setterName] = function (value) {
-        switch (type) {
-          case flag:
-            value = !!value
-            break
-          case inverted:
-            value = !value
-            break
+        } else if (name === 'set') {
+          return (key, val) => this.instance(target.set(key, val))
+        } else if (name.substr(0, 3) === 'set') {
+          const toSet = name.substr(3, 1).toLowerCase() + name.substr(4)
+          const toSetOffset = this.offsets[toSet]
+          if (toSetOffset !== undefined) {
+            return val => {
+              switch (this.types[toSet]) {
+                case flag:
+                  val = !!val
+                  break
+                case inverted:
+                  val = !val
+                  break
+              }
+              return this.instance(target.setData(target.data.set(toSetOffset, val)))
+            }
+          }
         }
-        return this.setData(this.data.set(offset, value))
-      }
-    }
-    return chunk
+        return target[name]
+      },
+    })
   }
 
 }

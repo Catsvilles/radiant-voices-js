@@ -107,7 +107,7 @@ export default class Module extends Map {
   }
 
   setOptions(options) {
-    return this.set('options', options.setOptions(options))
+    return this.set('type', this.type.setOptions(options))
   }
 
   get relativeNote() {
