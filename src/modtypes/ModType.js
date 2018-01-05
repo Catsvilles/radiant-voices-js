@@ -14,6 +14,14 @@ export default class ModType extends Map {
     return this.constructor.name()
   }
 
+  get ctls() {
+    return this.get('ctls')
+  }
+
+  setCtls(ctls) {
+    return this.set('ctls', ctls)
+  }
+
   get options() {
     return this.get('options')
   }

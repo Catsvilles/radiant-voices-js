@@ -102,6 +102,14 @@ export default class Module extends Map {
     return this.set('name', val)
   }
 
+  get ctls() {
+    return this.type.ctls
+  }
+
+  setCtls(ctls) {
+    return this.set('type', this.type.setCtls(ctls))
+  }
+
   get options() {
     return this.type.options
   }

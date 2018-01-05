@@ -40,25 +40,25 @@ const Waveform = {
 }
 
 const CONTROLLERS = new Controllers([
-  { volume: { type: [0, 256], default: 80 } },
-  { waveform: { type: Waveform, default: Waveform.triangle } },
-  { panning: { type: [-128, 128], default: 0 } },
-  { attack: { type: [0, 256], default: 0 } },
-  { release: { type: [0, 256], default: 0 } },
-  { sustain: { type: Boolean, default: true } },
-  { exponential_envelope: { type: Boolean, default: true } },
-  { duty_cycle: { type: [0, 1024], default: 512 } },
-  { freq2: { type: [0, 2000], default: 1000 } },
-  { filter: { type: Filter, default: Filter.off } },
-  { f_freq_hz: { type: [0, 14000], default: 14000 } },
-  { f_resonance: { type: [0, 1530], default: 0 } },
-  { f_exponential_freq: { type: Boolean, default: true } },
-  { f_attack: { type: [0, 256], default: 0 } },
-  { f_release: { type: [0, 256], default: 0 } },
-  { f_envelope: { type: FilterEnvelope, default: FilterEnvelope.off } },
-  { polyphony_ch: { type: [1, 32], default: 16 } },
-  { mode: { type: Mode, default: Mode.hq } },
-  { noise: { type: [0, 256], default: 0 } },
+  { volume: { type: [0, 256], initial: 80 } },
+  { waveform: { type: Waveform, initial: Waveform.triangle } },
+  { panning: { type: [-128, 128], initial: 0 } },
+  { attack: { type: [0, 256], initial: 0 } },
+  { release: { type: [0, 256], initial: 0 } },
+  { sustain: { type: Boolean, initial: true } },
+  { exponentialEnvelope: { type: Boolean, initial: true } },
+  { dutyCycle: { type: [0, 1024], initial: 512 } },
+  { freq2: { type: [0, 2000], initial: 1000 } },
+  { filter: { type: Filter, initial: Filter.off } },
+  { fFreqHz: { type: [0, 14000], initial: 14000 } },
+  { fResonance: { type: [0, 1530], initial: 0 } },
+  { fExponentialFreq: { type: Boolean, initial: true } },
+  { fAttack: { type: [0, 256], initial: 0 } },
+  { fRelease: { type: [0, 256], initial: 0 } },
+  { fEnvelope: { type: FilterEnvelope, initial: FilterEnvelope.off } },
+  { polyphonyCh: { type: [1, 32], initial: 16 } },
+  { mode: { type: Mode, initial: Mode.hq } },
+  { noise: { type: [0, 256], initial: 0 } },
 ])
 
 const OPTIONS_CHNM = 0x01
@@ -82,7 +82,7 @@ export default class AnalogGenerator extends ModType {
 
   constructor() {
     super({
-      controllers: CONTROLLERS.instance(),
+      ctls: CONTROLLERS.instance(),
       options: OPTIONS.instance(),
     })
   }
@@ -109,3 +109,8 @@ export default class AnalogGenerator extends ModType {
   }
 
 }
+
+AnalogGenerator.Filter = Filter
+AnalogGenerator.FilterEnvelope = FilterEnvelope
+AnalogGenerator.Mode = Mode
+AnalogGenerator.Waveform = Waveform
