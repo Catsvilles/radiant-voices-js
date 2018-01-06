@@ -32,7 +32,7 @@ const FrequencyUnit = {
 }
 
 const FREQ_RANGES = {
-  [FrequencyUnit.hzDiv64]: [1, 2048],
+  [FrequencyUnit.hzDiv64]: [1, 256],
   [FrequencyUnit.ms]: [1, 4000],
   [FrequencyUnit.hz]: [1, 16384],
   [FrequencyUnit.tick]: [1, 256],
@@ -41,15 +41,19 @@ const FREQ_RANGES = {
   [FrequencyUnit.lineDiv3]: [1, 256],
 }
 
+const freqType = c => FREQ_RANGES[c.frequencyUnit]
+
+const onFrequencyUnitChange = c => c.setFreq(c.freq)
+
 const CONTROLLERS = new Controllers([
   { volume: { type: [0, 512], initial: 256 } },
   { type: { type: Type, initial: Type.amplitude } },
   { amplitude: { type: [0, 256], initial: 256 } },
-  { freq: { type: c => FREQ_RANGES[c.frequencyUnit], initial: 256 } },
+  { freq: { type: freqType, initial: 256 } },
   { waveform: { type: Waveform, initial: Waveform.sin } },
   { setPhase: { type: [0, 256], initial: 0 } },
   { channels: { type: Channels, initial: Channels.stereo } },
-  { frequencyUnit: { type: FrequencyUnit, initial: FrequencyUnit.hzDiv64 } },
+  { frequencyUnit: { type: FrequencyUnit, initial: FrequencyUnit.hzDiv64, onChange: onFrequencyUnitChange } },
   { dutyCycle: { type: [0, 256], initial: 128 } },
   { generator: { type: Boolean, initial: false } },
 ])

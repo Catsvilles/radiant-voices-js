@@ -21,18 +21,22 @@ export default class Controllers {
   constructor(spec) {
     this.defaultData = new List()
     this.offsets = {}
+    this.types = {}
+    this.onChangeCallbacks = {}
     for (let offset = 0; offset < spec.length; ++offset) {
       const item = spec[offset]
       for (const key in item) {
+        const { initial, type, onChange } = item[key]
         this.offsets[key] = offset
-        const { initial } = item[key]
+        this.types[key] = type
+        this.onChangeCallbacks[key] = onChange
         this.defaultData = this.defaultData.push(initial)
       }
     }
   }
 
   instance(existing) {
-    const i = existing || new ControllersInstance({ data: this.defaultData })
+    let i = existing || new ControllersInstance({ data: this.defaultData })
     return new Proxy(i, {
       get: (target, name) => {
         const offset = this.offsets[name]
@@ -44,7 +48,23 @@ export default class Controllers {
           const toSet = name.substr(3, 1).toLowerCase() + name.substr(4)
           const toSetOffset = this.offsets[toSet]
           if (toSetOffset !== undefined) {
-            return val => this.instance(target.setData(target.data.set(toSetOffset, val)))
+            return val => {
+              let type = this.types[toSet]
+              if ((typeof type) === 'function') {
+                type = type(this.instance(target))
+              }
+              if (type instanceof Array) {
+                const [min, max] = type
+                val = Math.max(val, min)
+                val = Math.min(val, max)
+              }
+              i = this.instance(target.setData(target.data.set(toSetOffset, val)))
+              const cb = this.onChangeCallbacks[toSet]
+              if (cb) {
+                i = cb(i)
+              }
+              return i
+            }
           }
         }
         return target[name]
