@@ -44,7 +44,7 @@ const FREQ_RANGES = {
 const CONTROLLERS = new Controllers([
   { volume: { type: [0, 512], initial: 256 } },
   { type: { type: Type, initial: Type.amplitude } },
-  { ampitude: { type: [0, 256], initial: 256 } },
+  { amplitude: { type: [0, 256], initial: 256 } },
   { freq: { type: c => FREQ_RANGES[c.frequencyUnit], initial: 256 } },
   { waveform: { type: Waveform, initial: Waveform.sin } },
   { setPhase: { type: [0, 256], initial: 0 } },
