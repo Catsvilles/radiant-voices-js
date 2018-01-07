@@ -37,11 +37,11 @@ export default class Module extends Map {
   }
 
   get ctlValues() {
-    return this.type.ctls ? this.type.ctls.data : new List()
+    return this.type ? this.type.ctls.data : new List()
   }
 
   pushCtlValue(uint32) {
-    this.setType(this.type.setCtls(this.type.ctls.setData(this.ctlValues.push(uint32))))
+    return this.set('type', this.type.setCtls(this.type.ctls.setData(this.ctlValues.push(uint32))))
   }
 
   get finetune() {
