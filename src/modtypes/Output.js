@@ -10,4 +10,8 @@ export default class Output extends ModType {
     return null
   }
 
+  static initialFlags() {
+    return 0x43
+  }
+
 }

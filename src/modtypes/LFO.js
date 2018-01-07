@@ -74,8 +74,13 @@ export default class LFO extends ModType {
     return 'LFO'
   }
 
+  static initialFlags() {
+    return 0x451
+  }
+
 }
 
+LFO.CONTROLLERS = CONTROLLERS
 LFO.Type = Type
 LFO.Waveform = Waveform
 LFO.Channels = Channels

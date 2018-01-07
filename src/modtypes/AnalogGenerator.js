@@ -1,5 +1,5 @@
-import ModType from './ModType'
 import Controllers from './Controllers'
+import ModType from './ModType'
 import Options, { flag, inverted } from './Options'
 
 const Filter = {
@@ -95,6 +95,10 @@ export default class AnalogGenerator extends ModType {
     return 'Analog generator'
   }
 
+  static initialFlags() {
+    return 0x49
+  }
+
   withChunkData(bytes) {
     if (this._chnm === OPTIONS_CHNM) {
       return this.setOptions(this.options.setBytes(bytes))
@@ -110,6 +114,8 @@ export default class AnalogGenerator extends ModType {
 
 }
 
+AnalogGenerator.CONTROLLERS = CONTROLLERS
+AnalogGenerator.OPTIONS = OPTIONS
 AnalogGenerator.Filter = Filter
 AnalogGenerator.FilterEnvelope = FilterEnvelope
 AnalogGenerator.Mode = Mode
