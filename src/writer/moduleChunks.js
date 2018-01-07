@@ -13,7 +13,7 @@ export default function *moduleChunks(module) {
   yield { type: 'SMIB', data: { int32: module.midiInBank } }
   yield { type: 'SMIP', data: { int32: module.midiInProgram } }
   yield { type: 'SLNK', data: { links: new Int32Array(module.links) } }
-  for (const value of module.controllerValues) {
+  for (const value of module.ctlValues) {
     yield { type: 'CVAL', data: { uint32: value } }
   }
   if (module.type && module.type.dataChunks) {

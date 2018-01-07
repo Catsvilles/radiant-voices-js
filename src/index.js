@@ -1,7 +1,6 @@
 import 'babel-polyfill'
 
 import Color from './Color'
-import ControllerValues from './ControllerValues'
 import DrawnWaveform from './DrawnWaveform'
 import Module from './Module'
 import ModuleConnections from './ModuleConnections'
@@ -23,7 +22,6 @@ import { chunks } from './writer'
 
 export {
   Color,
-  ControllerValues,
   DrawnWaveform,
   Module,
   ModuleConnections,

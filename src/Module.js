@@ -1,6 +1,5 @@
-import { Map } from 'extendable-immutable'
+import { List, Map } from 'extendable-immutable'
 import Color from './Color'
-import ControllerValues from './ControllerValues'
 import Links from './Links'
 import ModuleFlags from './ModuleFlags'
 import m from './modtypes'
@@ -21,7 +20,6 @@ export default class Module extends Map {
       midiInBank: -1,
       midiInProgram: -1,
       links: new Links(),
-      controllerValues: new ControllerValues(),
       ...props,
     })
   }
@@ -38,12 +36,12 @@ export default class Module extends Map {
     return this.mergeIn(['color'], color)
   }
 
-  get controllerValues() {
-    return this.get('controllerValues')
+  get ctlValues() {
+    return this.type.ctls ? this.type.ctls.data : new List()
   }
 
-  pushControllerValue(uint32) {
-    return this.set('controllerValues', this.controllerValues.push(uint32))
+  pushCtlValue(uint32) {
+    this.setType(this.type.setCtls(this.type.ctls.setData(this.ctlValues.push(uint32))))
   }
 
   get finetune() {
