@@ -134,7 +134,11 @@ export default class Module extends Map {
     if (typeof Type === 'string') {
       Type = m.typeClassMap[Type]
     }
-    return this.set('type', new Type())
+    let updated = this.set('type', new Type())
+    if (Type.initialFlags) {
+      updated.setFlags(ModuleFlags.fromUint32(Type.initialFlags()))
+    }
+    return updated
   }
 
   get x() {

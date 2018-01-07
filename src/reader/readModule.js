@@ -3,7 +3,7 @@ import Module from '../Module'
 
 const handlers = {
   SNAM: (m, _, { fixedString }) => m.setName(fixedString),
-  STYP: (m, _, { cstring }) => m.setType(cstring),
+  STYP: (m, _, { cstring }) => m.setType(cstring).setFlags(m.flags),
   SFIN: (m, _, { int32 }) => m.setFinetune(int32),
   SREL: (m, _, { int32 }) => m.setRelativeNote(int32),
   SXXX: (m, _, { int32 }) => m.setX(int32),
