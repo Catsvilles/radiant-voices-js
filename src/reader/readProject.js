@@ -1,6 +1,7 @@
 import Modules from '../Modules'
 import Project from '../Project'
 import readPattern from './readPattern'
+import readPatternClone from './readPatternClone'
 import readModule from './readModule'
 
 const handlers = {
@@ -10,6 +11,7 @@ const handlers = {
   GVOL: (p, _, { uint32 }) => p.setGlobalVolume(uint32),
   NAME: (p, _, { cstring }) => p.setName(cstring),
   PDTA: (p, chunks, data) => p.pushPattern(readPattern(chunks, data)),
+  PPAR: (p, chunks, data) => p.pushPattern(readPatternClone(chunks, data)),
   PEND: p => p.pushPattern(null),
   SFFF: (p, chunks, data) => p.pushModule(readModule(chunks, data)),
   SEND: p => p.pushModule(null),

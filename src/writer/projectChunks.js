@@ -47,8 +47,10 @@ export default function *projectChunks(project) {
   yield { type: 'PATT', data: { uint32: currentTrack } }
   yield { type: 'PATL', data: { uint32: currentLine } }
   for (let pattern of patterns) {
-    for (let chunk of chunks(pattern)) {
-      yield chunk
+    if (pattern) {
+      for (let chunk of chunks(pattern)) {
+        yield chunk
+      }
     }
     yield { type: 'PEND', data: { empty: true } }
   }
@@ -60,38 +62,4 @@ export default function *projectChunks(project) {
     }
     yield { type: 'SEND', data: { empty: true } }
   }
-
-  // TODO: patterns
-  // for pattern in self.patterns:
-  //     if pattern is not None:
-  //         for chunk in pattern.iff_chunks():
-  //             yield chunk
-  //     yield (b'PEND', b'')
-
-  // TODO: modules
-  // for i, module in enumerate(self.modules):
-  //     if module is not None:
-  //         for chunk in module.iff_chunks():
-  //             yield chunk
-  //         connections = self.module_connections[i]
-  //         if len(connections) > 0:
-  //             connections.append(-1)
-  //             structure = '<' + 'i' * len(connections)
-  //             links = pack(structure, *connections)
-  //         else:
-  //             links = b''
-  //         yield (b'SLNK', links)
-  //         controllers = [n for n, c in module.controllers.items()
-  //                        if c.attached(module)]
-  //         for name in controllers:
-  //             raw_value = module.get_raw(name)
-  //             yield (b'CVAL', pack('<I', raw_value))
-  //         if len(controllers) > 0:
-  //             yield (b'CMID', b''.join(module.controller_midi_maps[name].cmid_data for name in controllers))
-  //         if module.chnk:
-  //             yield (b'CHNK', pack('<I', max(0x10, module.chnk)))
-  //             for chunk in module.specialized_iff_chunks():
-  //                 yield chunk
-  //     yield (b'SEND', b'')
-
 }
