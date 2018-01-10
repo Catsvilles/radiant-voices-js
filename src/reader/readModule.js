@@ -34,7 +34,7 @@ export default (chunks, { moduleFlags }) => {
     const { [type]: handler } = handlers
     if (handler) {
       if (handler === true) {
-        return module
+        return module.finalizeCvals()
       }
       module = handler(module, data)
     } else {

@@ -14,6 +14,19 @@ class ControllersInstance extends Map {
     return this.set('data', list)
   }
 
+  prepareForCvals() {
+    return this.set('_data', this.data).set('data', new List())
+  }
+
+  finalizeCvals() {
+    const _data = this.get('_data')
+    let data = this.data
+    while (data.size < _data.size) {
+      data = data.push(_data.get(data.size))
+    }
+    return this.setData(data)
+  }
+
 }
 
 export default class Controllers {

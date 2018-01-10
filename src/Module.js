@@ -37,7 +37,7 @@ export default class Module extends Map {
   }
 
   get ctlValues() {
-    return this.type ? this.type.ctls.data : new List()
+    return (this.type && this.type.ctls) ? this.type.ctls.data : new List()
   }
 
   pushCtlValue(uint32) {
@@ -153,6 +153,14 @@ export default class Module extends Map {
 
   setY(int32) {
     return this.set('y', int32)
+  }
+
+  prepareForCvals() {
+    return this.type.ctls ? this.set('type', this.type.setCtls(this.type.ctls.prepareForCvals())) : this
+  }
+
+  finalizeCvals() {
+    return (this.type && this.type.ctls) ? this.set('type', this.type.setCtls(this.type.ctls.finalizeCvals())) : this
   }
 
   withChunkNumber(uint32) {
