@@ -15,14 +15,16 @@ try {
   process.exit(1)
 }
 
-let tmpPath, tmpFile
+let tmpPath, tmpFile, tmpOrigFile
 try {
   const chunks2 = rv.chunks(project)
   const buffer = rv.toIffBuffer(chunks2)
   tmpPath = fs.mkdtempSync('/tmp/renderDiff')
+  tmpOrigFile = `${tmpPath}/orig.sunvox`
   tmpFile = `${tmpPath}/rv.sunvox`
   console.log({ tmpFile })
   fs.writeFileSync(tmpFile, new Buffer(buffer.buffer))
+  fs.symlinkSync(origFile, tmpOrigFile)
 } catch (e) {
   process.exit(2)
 }
@@ -136,6 +138,7 @@ rvFork.on('exit', onExit)
 const success = () => {
   kill()
   fs.unlinkSync(tmpFile)
+  fs.unlinkSync(tmpOrigFile)
   fs.rmdirSync(tmpPath)
   console.log({ block })
   process.exit(0)
