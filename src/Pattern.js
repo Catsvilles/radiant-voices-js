@@ -7,19 +7,19 @@ export default class Pattern extends Map {
 
   constructor(props) {
     super({
-      data: new Uint8Array(0),
-      name: null,
+      ...props,
       appearanceFlags: PatternAppearanceFlags.fromUint32(0),
-      icon: new Uint8Array(32),
-      foregroundColor: new Color({ r: 255, g: 255, b: 255 }),
       backgroundColor: new Color({ r: 0, g: 0, b: 0 }),
+      data: new Uint8Array(0),
       flags: PatternFlags.fromUint32(0),
+      foregroundColor: new Color({ r: 255, g: 255, b: 255 }),
+      height: 32,
+      icon: new Uint8Array(32),
+      lines: 0,
+      name: null,
+      tracks: 0,
       x: 0,
       y: 0,
-      height: 32,
-      lines: 0,
-      tracks: 0,
-      ...props,
     })
   }
 

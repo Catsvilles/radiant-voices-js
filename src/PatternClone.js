@@ -5,8 +5,8 @@ export default class PatternClone extends Map {
 
   constructor(props) {
     super({
-      index: null,
       flags: PatternFlags.fromUint32(0),
+      index: null,
       x: 0,
       y: 0,
       ...props,

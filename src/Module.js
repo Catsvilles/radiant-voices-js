@@ -8,18 +8,22 @@ export default class Module extends Map {
 
   constructor(...props) {
     super({
-      flags: ModuleFlags.fromUint32(0),
-      name: '',
-      type: null,
+      color: new Color({ r: 255, g: 255, b: 255 }),
       finetune: 0,
+      flags: ModuleFlags.fromUint32(0),
+      layer: 0,
+      links: new Links(),
+      midiInBank: -1,
+      midiInChannel: 0,
+      midiInProgram: -1,
+      midiOutName: null,
+      name: '',
       relativeNote: 0,
+      scale: 256,
+      type: null,
+      visualization: 0xc0101,
       x: 512,
       y: 512,
-      color: new Color({ r: 255, g: 255, b: 255 }),
-      midiInChannel: 0,
-      midiInBank: -1,
-      midiInProgram: -1,
-      links: new Links(),
       ...props,
     })
   }
@@ -42,6 +46,19 @@ export default class Module extends Map {
 
   pushCtlValue(uint32) {
     return this.set('type', this.type.setCtls(this.type.ctls.setData(this.ctlValues.push(uint32))))
+  }
+
+  get midiMappings() {
+    return this.type && this.type.ctls && this.type.ctls.midiMappings
+  }
+
+  pushCtlMidiMappings(allBytes) {
+    let newMappings = this.midiMappings
+    allBytes = new List(allBytes)
+    for (let i = 0; i < allBytes.size / 8; ++i) {
+      newMappings = newMappings.push(allBytes.slice(i * 8, (i + 1) * 8))
+    }
+    return this.set('type', this.type.setCtls(this.type.ctls.setMidiMappings(newMappings)))
   }
 
   get finetune() {
@@ -90,6 +107,14 @@ export default class Module extends Map {
 
   setMidiInProgram(int32) {
     return this.set('midiInProgram', int32)
+  }
+
+  get midiOutName() {
+    return this.get('midiOutName')
+  }
+
+  setMidiOutName(cstring) {
+    return this.set('midiOutName', cstring)
   }
 
   get name() {
@@ -153,6 +178,30 @@ export default class Module extends Map {
 
   setY(int32) {
     return this.set('y', int32)
+  }
+
+  get layer() {
+    return this.get('layer')
+  }
+
+  setLayer(uint32) {
+    return this.set('layer', uint32)
+  }
+
+  get scale() {
+    return this.get('scale')
+  }
+
+  setScale(uint32) {
+    return this.set('scale', uint32)
+  }
+
+  get visualization() {
+    return this.get('visualization')
+  }
+
+  setVisualization(uint32) {
+    return this.set('visualization', uint32)
   }
 
   prepareForCvals() {
