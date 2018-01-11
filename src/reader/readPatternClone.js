@@ -1,10 +1,10 @@
 import PatternClone from '../PatternClone'
 
 const handlers = {
+  PEND: true,
   PFFF: (p, { patternFlags }) => p.setFlags(patternFlags),
   PXXX: (p, { int32 }) => p.setX(int32),
   PYYY: (p, { int32 }) => p.setY(int32),
-  PEND: true,
 }
 
 export default (chunks, { uint32: index }) => {
