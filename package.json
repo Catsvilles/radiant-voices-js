@@ -9,7 +9,8 @@
     "test": "mocha --compilers js:babel-core/register --colors ./test/*.spec.js",
     "test:watch": "mocha --compilers js:babel-core/register --colors -w ./test/*.spec.js",
     "dumpchunks": "node utils/dumpChunks.js",
-    "loadsavedump": "node utils/loadSaveDump.js"
+    "loadsavedump": "node utils/loadSaveDump.js",
+    "renderDiff": "node utils/renderDiff.js"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
@@ -24,6 +25,7 @@
     "eslint-loader": "^1.9.0",
     "hexdump-nodejs": "^0.1.0",
     "mocha": "3.3.0",
+    "sunvox-dll-node": "file:../sunvox-dll-node",
     "text-encoding": "^0.6.4",
     "webpack": "^3.8.1",
     "yargs": "7.1.0"
