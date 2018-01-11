@@ -8,6 +8,7 @@ export default class Pattern extends Map {
   constructor(props) {
     super({
       data: new Uint8Array(0),
+      name: null,
       appearanceFlags: PatternAppearanceFlags.fromUint32(0),
       icon: new Uint8Array(32),
       foregroundColor: new Color({ r: 255, g: 255, b: 255 }),
@@ -24,6 +25,14 @@ export default class Pattern extends Map {
 
   static isPattern(val) {
     return val && val instanceof Pattern
+  }
+
+  get name() {
+    return this.get('name')
+  }
+
+  setName(cstring) {
+    return this.set('name', cstring)
   }
 
   get appearanceFlags() {

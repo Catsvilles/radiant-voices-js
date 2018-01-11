@@ -9,6 +9,7 @@ const handlers = {
   PFLG: (p, { patternAppearanceFlags }) => p.setAppearanceFlags(patternAppearanceFlags),
   PICO: (p, { bytes }) => p.setIcon(bytes),
   PLIN: (p, { uint32 }) => p.setLines(uint32),
+  PNME: (p, { cstring }) => p.setName(cstring),
   PXXX: (p, { int32 }) => p.setX(int32),
   PYSZ: (p, { uint32 }) => p.setHeight(uint32),
   PYYY: (p, { int32 }) => p.setY(int32),
