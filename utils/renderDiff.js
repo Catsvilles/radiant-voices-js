@@ -147,36 +147,3 @@ const success = () => {
 start()
 
 setInterval(() => true, 250)
-
-// read the file using rv
-  // exit 1 if RV can't read the file
-
-// write the file back to a tmp file
-  // exit 2 if RV can't write the file
-
-// open sunvox rendering process for each file
-  // exit 3 if sunvox can't load original file
-  // exit 4 if sunvox can't load RV file
-
-// each process:
-// initialize int16, 44100, 2 channel
-// load module
-  // exit 1 if cannot load module
-// write song length in frames as uint32 to stdout
-// begin rendering the song to stdout, up to song length in frames
-// exit 0
-
-// compare song length
-// if mismatch
-  // log difference
-  // kill subprocesses
-  // exit 5
-
-// compare each byte of song rendering
-// if mismatch
-  // log position of difference
-  // kill subprocesses
-  // exit 6
-
-// when subprocesses are both done
-  // exit 0
