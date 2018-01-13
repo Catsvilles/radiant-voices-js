@@ -17,6 +17,8 @@ const OPTIONS = new Options([
   { eventOutput: inverted },
 ])
 
+const OPTIONS_CHNM = 2
+
 export default class MetaModule extends ModType {
 
   constructor() {
@@ -34,6 +36,18 @@ export default class MetaModule extends ModType {
     return 'MetaModule'
   }
 
+  *dataChunks() {
+    yield { type: 'CHNK', data: { uint32: this.options.userDefinedControllers + 9 } }
+    yield { type: 'CHNM', data: { uint32: OPTIONS_CHNM } }
+    yield { type: 'CHDT', data: { bytes: this.options.bytes } }
+  }
+
+  withChunkData(bytes) {
+    if (this._chnm === OPTIONS_CHNM) {
+      return this.setOptions(this.options.setBytes(bytes))
+    }
+    return this
+  }
 }
 
 MetaModule.CONTROLLERS = CONTROLLERS

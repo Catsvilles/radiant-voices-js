@@ -31,6 +31,8 @@ const OPTIONS = new Options([
   { ignoreVelocityForVolume: flag },
 ])
 
+const OPTIONS_CHNM = 0x101
+
 export default class Sampler extends ModType {
 
   constructor() {
@@ -52,6 +54,18 @@ export default class Sampler extends ModType {
     return 0x8459
   }
 
+  *dataChunks() {
+    yield { type: 'CHNK', data: { uint32: OPTIONS_CHNM + 1 /* TODO */ } }
+    yield { type: 'CHNM', data: { uint32: OPTIONS_CHNM } }
+    yield { type: 'CHDT', data: { bytes: this.options.bytes } }
+  }
+
+  withChunkData(bytes) {
+    if (this._chnm === OPTIONS_CHNM) {
+      return this.setOptions(this.options.setBytes(bytes))
+    }
+    return this
+  }
 }
 
 Sampler.CONTROLLERS = CONTROLLERS

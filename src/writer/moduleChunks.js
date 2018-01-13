@@ -1,5 +1,3 @@
-import { List } from 'extendable-immutable'
-
 export default function *moduleChunks(module) {
   yield { type: 'SFFF', data: { moduleFlags: module.flags } }
   yield { type: 'SNAM', data: { fixedString: module.name } }

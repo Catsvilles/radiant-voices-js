@@ -20,6 +20,8 @@ const OPTIONS = new Options([
   { trigger: flag },
 ])
 
+const OPTIONS_CHNM = 1
+
 export default class MultiSynth extends ModType {
 
   constructor() {
@@ -41,6 +43,11 @@ export default class MultiSynth extends ModType {
     return 0x21049
   }
 
+  *dataChunks() {
+    yield { type: 'CHNK', data: { uint32: OPTIONS_CHNM + 1 } }
+    yield { type: 'CHNM', data: { uint32: OPTIONS_CHNM } }
+    yield { type: 'CHDT', data: { bytes: this.options.bytes } }
+  }
 }
 
 MultiSynth.CONTROLLERS = CONTROLLERS
