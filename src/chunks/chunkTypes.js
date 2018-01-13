@@ -1,15 +1,18 @@
-const bytes = 'bytes'
-const color = 'color'
-const cstring = 'cstring'
-const empty = 'empty'
-const fixedString = 'fixedString'
-const int32 = 'int32'
-const links = 'links'
-const moduleFlags = 'moduleFlags'
-const patternAppearanceFlags = 'patternAppearanceFlags'
-const patternFlags = 'patternFlags'
-const uint32 = 'uint32'
-const version = 'version'
+import {
+  bytes,
+  color,
+  cstring,
+  empty,
+  fixedString,
+  int32,
+  links,
+  moduleFlags,
+  patternAppearanceFlags,
+  patternFlags,
+  uint32,
+  version,
+} from '../dataTypes'
+
 export default {
   'BPM ': uint32,
   BVER: version,
